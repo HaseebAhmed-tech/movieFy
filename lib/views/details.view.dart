@@ -1,18 +1,18 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:moviely/controller/tmdb_controller.dart';
-import 'package:moviely/controller/watch_list_provider.dart';
-import 'package:moviely/model/movie.dart';
-import 'package:moviely/resources/constants/colors.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:moviely/resources/constants/padding.dart';
-import 'package:moviely/resources/widgets/detail_widget.dart';
 import 'package:provider/provider.dart';
 import 'package:youtube_player_iframe/youtube_player_iframe.dart';
 
 import '../controller/tab_bar_provider.dart';
+import '../controller/tmdb_controller.dart';
+import '../controller/watch_list_provider.dart';
 import '../model/details.dart';
+import '../model/movie.dart';
+import '../resources/constants/colors.dart';
+import '../resources/constants/padding.dart';
+import '../resources/widgets/detail_widget.dart';
 
 class DetailsView extends StatefulWidget {
   const DetailsView({
@@ -73,16 +73,7 @@ class _DetailsViewState extends State<DetailsView> {
     return LayoutBuilder(builder: (context, cons) {
       return YoutubePlayerScaffold(
           aspectRatio: 16 / 9,
-
-          // autoFullScreen: false,
           controller: _controller,
-          // onExitFullScreen: () {
-          //   SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
-          //       overlays: [SystemUiOverlay.top, SystemUiOverlay.bottom]);
-          //   // _controller.reset();
-          //   // _controller.toggleFullScreenMode();
-          // },
-
           builder: (context, player) {
             return Scaffold(
               appBar: _appBar(context),
@@ -152,34 +143,46 @@ class _DetailsViewState extends State<DetailsView> {
   Widget _backDrop(BoxConstraints cons, String backDropUrl) {
     return CachedNetworkImage(
         imageUrl: backDropUrl,
-        placeholder: (context, url) => Container(
-              width: 150,
-              height: cons.maxHeight * 0.28,
-              alignment: Alignment.center,
-              child: SpinKitDoubleBounce(color: Theme.of(context).primaryColor),
-            ),
-        errorWidget: (context, url, error) => Container(
-            width: 150,
-            height: cons.maxHeight * 0.28,
-            alignment: Alignment.topRight,
-            child: const Icon(
-              Icons.error,
-              color: Colors.red,
-            )),
+        placeholder: (context, url) => _placeHolder(cons, context),
+        errorWidget: (context, url, error) => _errorWidget(cons),
         errorListener: (exception) {
           debugPrint('Image Error: $exception');
         },
         imageBuilder: (context, imageProvider) {
-          return Container(
-            height: 200,
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: imageProvider,
-                fit: BoxFit.cover,
-              ),
-            ),
-          );
+          return imageContainer(imageProvider);
         });
+  }
+
+  Container imageContainer(ImageProvider<Object> imageProvider) {
+    return Container(
+      height: 200,
+      decoration: BoxDecoration(
+        image: DecorationImage(
+          image: imageProvider,
+          fit: BoxFit.cover,
+        ),
+      ),
+    );
+  }
+
+  Container _errorWidget(BoxConstraints cons) {
+    return Container(
+        width: 150,
+        height: cons.maxHeight * 0.28,
+        alignment: Alignment.topRight,
+        child: const Icon(
+          Icons.error,
+          color: Colors.red,
+        ));
+  }
+
+  Container _placeHolder(BoxConstraints cons, BuildContext context) {
+    return Container(
+      width: 150,
+      height: cons.maxHeight * 0.28,
+      alignment: Alignment.center,
+      child: SpinKitDoubleBounce(color: Theme.of(context).primaryColor),
+    );
   }
 
   Container _rating(String rating) {

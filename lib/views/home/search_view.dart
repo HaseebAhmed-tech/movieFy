@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:moviely/controller/searched_list_provider.dart';
-import 'package:moviely/controller/tmdb_controller.dart';
-import 'package:moviely/resources/widgets/minor_detail_cover.dart';
-import 'package:moviely/resources/widgets/text_form_field.dart';
-import 'package:moviely/utils/utils.dart';
-import 'package:moviely/views/details.view.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 
+import '../../controller/searched_list_provider.dart';
+import '../../controller/tmdb_controller.dart';
 import '../../model/details.dart';
 import '../../model/movie.dart';
 import '../../resources/constants/padding.dart';
+import '../../resources/widgets/minor_detail_cover.dart';
+import '../../resources/widgets/text_form_field.dart';
+import '../../utils/utils.dart';
+import '../details.view.dart';
 
 class SearchView extends StatefulWidget {
   const SearchView({super.key, this.movies});
@@ -75,18 +75,16 @@ class _SearchViewState extends State<SearchView> {
         fit: BoxFit.scaleDown,
       ),
       focusNode: _searchFocusNode,
-      // onChanged: (value) {
-      //   debugPrint('Search View: Search -> $value');
-      // },
       onFieldSubmitted: (p0) {
         Provider.of<SearchedListProvider>(context, listen: false)
-            .updateSearched(_searchController.text.isNotEmpty
-                ? widget.movies!.where((element) {
-                    return element.title
-                        .toLowerCase()
-                        .contains(p0.toLowerCase().trim());
-                  }).toList()
-                : []);
+            .updateSearched(
+          _searchController.text.isNotEmpty
+              ? Utils.searchMovies(
+                  match: p0,
+                  movies: widget.movies,
+                )
+              : [],
+        );
         Utils.fieldFocusChange(context, _searchFocusNode);
       },
     );
@@ -99,33 +97,8 @@ class _SearchViewState extends State<SearchView> {
           return provider.searched.isNotEmpty
               ? SingleChildScrollView(
                   child: Column(
-                    children: provider.searched.map((e) {
-                      // _tmdbController.getMovieDetails(context, e!.id).then(
-                      //   (value) {
-                      // print('Search View: Details -> $value');
-                      return FutureBuilder(
-                          future:
-                              _tmdbController.getMovieDetails(context, e!.id),
-                          builder: (context, snapshot) {
-                            if (snapshot.hasData) {
-                              return _detailCard(context, snapshot.data, e);
-                            }
-                            if (snapshot.connectionState ==
-                                ConnectionState.done) {
-                              if (snapshot.data == null) {
-                                return _detailCard(context, null, e);
-                              }
-                            }
-                            if (snapshot.connectionState ==
-                                ConnectionState.waiting) {
-                              return const CircularProgressIndicator();
-                            }
-
-                            return const SizedBox();
-                          });
-                      //   },
-                      // );
-                      // return const CircularProgressIndicator();
+                    children: provider.searched.map((movie) {
+                      return _mapBuilder(context, movie);
                     }).toList(),
                   ),
                 )
@@ -140,6 +113,26 @@ class _SearchViewState extends State<SearchView> {
     );
   }
 
+  FutureBuilder<Details?> _mapBuilder(BuildContext context, Movie? e) {
+    return FutureBuilder(
+        future: _tmdbController.getMovieDetails(context, e!.id),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            return _detailCard(context, snapshot.data, e);
+          }
+          if (snapshot.connectionState == ConnectionState.done) {
+            if (snapshot.data == null) {
+              return _detailCard(context, null, e);
+            }
+          }
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const CircularProgressIndicator();
+          }
+
+          return const SizedBox();
+        });
+  }
+
   GestureDetector _detailCard(
     BuildContext context,
     Details? details,
@@ -147,11 +140,14 @@ class _SearchViewState extends State<SearchView> {
   ) {
     return GestureDetector(
       onTap: () {
-        Navigator.of(context).push(MaterialPageRoute(
+        Navigator.of(context).push(
+          MaterialPageRoute(
             builder: (_) => DetailsView(
-                  details: details,
-                  movie: movie,
-                )));
+              details: details,
+              movie: movie,
+            ),
+          ),
+        );
       },
       child: Padding(
         padding: const EdgeInsets.only(bottom: MyPadding.small),

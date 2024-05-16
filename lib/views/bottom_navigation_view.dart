@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:moviely/controller/bottom_nav_provider.dart';
-import 'package:moviely/model/movie.dart';
-import 'package:moviely/resources/constants/padding.dart';
-
 import 'package:provider/provider.dart';
 
+import '../controller/bottom_nav_provider.dart';
 import '../controller/watch_list_provider.dart';
 import '../model/details.dart';
+import '../model/movie.dart';
+import '../resources/constants/padding.dart';
 import '../utils/utils.dart';
 
 class BottomNavigationView extends StatefulWidget {
@@ -63,37 +62,49 @@ class _BottomNavigationViewState extends State<BottomNavigationView> {
           provider.setIndex(index);
         },
         items: <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: SvgPicture.asset(
-              'assets/icons/home.svg',
-              height: 20,
-              width: 20,
-              colorFilter: provider.currentIndex == 0
-                  ? ColorFilter.mode(
-                      Theme.of(context).primaryColor, BlendMode.srcIn)
-                  : ColorFilter.mode(
-                      Theme.of(context).unselectedWidgetColor, BlendMode.srcIn),
-              fit: BoxFit.scaleDown,
-            ),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: SvgPicture.asset(
-              'assets/icons/search.svg',
-              colorFilter: provider.currentIndex == 1
-                  ? ColorFilter.mode(
-                      Theme.of(context).primaryColor, BlendMode.srcIn)
-                  : ColorFilter.mode(
-                      Theme.of(context).unselectedWidgetColor, BlendMode.srcIn),
-            ),
-            label: 'Search',
-          ),
-          const BottomNavigationBarItem(
-            icon: Icon(Icons.bookmark_border_rounded),
-            label: 'Watch Later',
-          ),
+          _homeNavBarElement(provider, context),
+          _searchNavBarElement(provider, context),
+          _watchLaterElement(),
         ],
       ),
+    );
+  }
+
+  BottomNavigationBarItem _watchLaterElement() {
+    return const BottomNavigationBarItem(
+      icon: Icon(Icons.bookmark_border_rounded),
+      label: 'Watch Later',
+    );
+  }
+
+  BottomNavigationBarItem _searchNavBarElement(
+      BottomNavigationProvider provider, BuildContext context) {
+    return BottomNavigationBarItem(
+      icon: SvgPicture.asset(
+        'assets/icons/search.svg',
+        colorFilter: provider.currentIndex == 1
+            ? ColorFilter.mode(Theme.of(context).primaryColor, BlendMode.srcIn)
+            : ColorFilter.mode(
+                Theme.of(context).unselectedWidgetColor, BlendMode.srcIn),
+      ),
+      label: 'Search',
+    );
+  }
+
+  BottomNavigationBarItem _homeNavBarElement(
+      BottomNavigationProvider provider, BuildContext context) {
+    return BottomNavigationBarItem(
+      icon: SvgPicture.asset(
+        'assets/icons/home.svg',
+        height: 20,
+        width: 20,
+        colorFilter: provider.currentIndex == 0
+            ? ColorFilter.mode(Theme.of(context).primaryColor, BlendMode.srcIn)
+            : ColorFilter.mode(
+                Theme.of(context).unselectedWidgetColor, BlendMode.srcIn),
+        fit: BoxFit.scaleDown,
+      ),
+      label: 'Home',
     );
   }
 }

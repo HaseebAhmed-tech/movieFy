@@ -139,4 +139,11 @@ class Utils {
   static Future<bool> checkInternetConnectivity() async {
     return await InternetConnection().hasInternetAccess;
   }
+
+  static List<Movie> searchMovies(
+      {List<Movie>? movies, required String match}) {
+    return movies!.where((element) {
+      return element.title.toLowerCase().contains(match.toLowerCase().trim());
+    }).toList();
+  }
 }

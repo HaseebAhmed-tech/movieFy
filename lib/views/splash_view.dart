@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:hive_flutter/adapters.dart';
-import 'package:moviely/controller/tmdb_controller.dart';
-import 'package:moviely/model/details.dart';
-import 'package:moviely/model/movie.dart';
-import 'package:moviely/utils/utils.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
+
+import '../controller/tmdb_controller.dart';
+import '../model/details.dart';
+import '../model/movie.dart';
+import '../utils/utils.dart';
 
 class SplashView extends StatefulWidget {
   const SplashView({super.key});

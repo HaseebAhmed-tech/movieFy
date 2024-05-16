@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:moviely/controller/tmdb_controller.dart';
-import 'package:moviely/controller/watch_list_provider.dart';
-import 'package:moviely/resources/widgets/minor_detail_cover.dart';
-import 'package:moviely/views/details.view.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
+
+import '../../controller/tmdb_controller.dart';
+import '../../controller/watch_list_provider.dart';
 import '../../model/details.dart';
 import '../../model/movie.dart';
 import '../../resources/constants/padding.dart';
+import '../../resources/widgets/minor_detail_cover.dart';
+import '../details.view.dart';
 
 class WatchListView extends StatefulWidget {
   const WatchListView({super.key, this.movies, this.details});
@@ -61,27 +62,8 @@ class _WatchListViewState extends State<WatchListView> {
           return provider.getWatchList().isNotEmpty
               ? SingleChildScrollView(
                   child: Column(
-                    children: provider.getWatchList().map((e) {
-                      // _tmdbController.getMovieDetails(context, e!.id).then(
-                      //   (value) {
-                      // print('Search View: Details -> $value');
-                      return FutureBuilder(
-                          future:
-                              _tmdbController.getMovieDetails(context, e.id),
-                          builder: (context, snapshot) {
-                            if (snapshot.hasData) {
-                              return _detailCard(context, snapshot.data, e);
-                            }
-
-                            if (snapshot.data == null) {
-                              return _detailCard(context, snapshot.data, e);
-                            }
-
-                            return const SizedBox();
-                          });
-                      //   },
-                      // );
-                      // return const CircularProgressIndicator();
+                    children: provider.getWatchList().map((movie) {
+                      return _mapBuilder(context, movie);
                     }).toList(),
                   ),
                 )
@@ -91,6 +73,22 @@ class _WatchListViewState extends State<WatchListView> {
         },
       ),
     );
+  }
+
+  FutureBuilder<Details?> _mapBuilder(BuildContext context, Movie e) {
+    return FutureBuilder(
+        future: _tmdbController.getMovieDetails(context, e.id),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            return _detailCard(context, snapshot.data, e);
+          }
+
+          if (snapshot.data == null) {
+            return _detailCard(context, snapshot.data, e);
+          }
+
+          return const SizedBox();
+        });
   }
 
   GestureDetector _detailCard(
