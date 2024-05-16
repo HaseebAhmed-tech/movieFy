@@ -1,0 +1,192 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.example.moviely"
+4    android:versionCode="1"
+5    android:versionName="1.0.0" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="19"
+9        android:targetSdkVersion="33" />
+10    <!--
+11         The INTERNET permission is required for development. Specifically,
+12         the Flutter tool needs it to communicate with the running application
+13         to allow setting breakpoints, to provide hot reload, etc.
+14    -->
+15    <uses-permission android:name="android.permission.INTERNET" />
+15-->F:\Cowlar\moviely\android\app\src\debug\AndroidManifest.xml:6:5-66
+15-->F:\Cowlar\moviely\android\app\src\debug\AndroidManifest.xml:6:22-64
+16
+17    <queries>
+17-->[:flutter_inappwebview_android] F:\Cowlar\moviely\build\flutter_inappwebview_android\intermediates\merged_manifest\debug\AndroidManifest.xml:9:5-13:15
+18        <intent>
+18-->[:flutter_inappwebview_android] F:\Cowlar\moviely\build\flutter_inappwebview_android\intermediates\merged_manifest\debug\AndroidManifest.xml:10:9-12:18
+19            <action android:name="android.support.customtabs.action.CustomTabsService" />
+19-->[:flutter_inappwebview_android] F:\Cowlar\moviely\build\flutter_inappwebview_android\intermediates\merged_manifest\debug\AndroidManifest.xml:11:13-90
+19-->[:flutter_inappwebview_android] F:\Cowlar\moviely\build\flutter_inappwebview_android\intermediates\merged_manifest\debug\AndroidManifest.xml:11:21-87
+20        </intent>
+21    </queries>
+22
+23    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+23-->[:connectivity_plus] F:\Cowlar\moviely\build\connectivity_plus\intermediates\merged_manifest\debug\AndroidManifest.xml:9:5-79
+23-->[:connectivity_plus] F:\Cowlar\moviely\build\connectivity_plus\intermediates\merged_manifest\debug\AndroidManifest.xml:9:22-76
+24
+25    <permission
+25-->[androidx.core:core:1.10.1] C:\Users\Haseeb Ahmed\.gradle\caches\transforms-3\c4988ff80110f75080a936fc6f044848\transformed\core-1.10.1\AndroidManifest.xml:22:5-24:47
+26        android:name="com.example.moviely.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+26-->[androidx.core:core:1.10.1] C:\Users\Haseeb Ahmed\.gradle\caches\transforms-3\c4988ff80110f75080a936fc6f044848\transformed\core-1.10.1\AndroidManifest.xml:23:9-81
+27        android:protectionLevel="signature" />
+27-->[androidx.core:core:1.10.1] C:\Users\Haseeb Ahmed\.gradle\caches\transforms-3\c4988ff80110f75080a936fc6f044848\transformed\core-1.10.1\AndroidManifest.xml:24:9-44
+28
+29    <uses-permission android:name="com.example.moviely.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
+29-->[androidx.core:core:1.10.1] C:\Users\Haseeb Ahmed\.gradle\caches\transforms-3\c4988ff80110f75080a936fc6f044848\transformed\core-1.10.1\AndroidManifest.xml:26:5-97
+29-->[androidx.core:core:1.10.1] C:\Users\Haseeb Ahmed\.gradle\caches\transforms-3\c4988ff80110f75080a936fc6f044848\transformed\core-1.10.1\AndroidManifest.xml:26:22-94
+30
+31    <application
+32        android:name="android.app.Application"
+33        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+33-->[androidx.core:core:1.10.1] C:\Users\Haseeb Ahmed\.gradle\caches\transforms-3\c4988ff80110f75080a936fc6f044848\transformed\core-1.10.1\AndroidManifest.xml:28:18-86
+34        android:debuggable="true"
+35        android:icon="@mipmap/ic_launcher"
+36        android:label="moviely" >
+37        <activity
+38            android:name="com.example.moviely.MainActivity"
+39            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
+40            android:exported="true"
+41            android:hardwareAccelerated="true"
+42            android:launchMode="singleTop"
+43            android:theme="@style/LaunchTheme"
+44            android:windowSoftInputMode="adjustResize" >
+45
+46            <!--
+47                 Specifies an Android theme to apply to this Activity as soon as
+48                 the Android process has started. This theme is visible to the user
+49                 while the Flutter UI initializes. After that, this theme continues
+50                 to determine the Window background behind the Flutter UI.
+51            -->
+52            <meta-data
+53                android:name="io.flutter.embedding.android.NormalTheme"
+54                android:resource="@style/NormalTheme" />
+55
+56            <intent-filter>
+57                <action android:name="android.intent.action.MAIN" />
+58
+59                <category android:name="android.intent.category.LAUNCHER" />
+60            </intent-filter>
+61        </activity>
+62        <!--
+63             Don't delete the meta-data below.
+64             This is used by the Flutter tool to generate GeneratedPluginRegistrant.java
+65        -->
+66        <meta-data
+67            android:name="flutterEmbedding"
+68            android:value="2" />
+69
+70        <activity
+70-->[:flutter_inappwebview_android] F:\Cowlar\moviely\build\flutter_inappwebview_android\intermediates\merged_manifest\debug\AndroidManifest.xml:16:9-20:47
+71            android:name="com.pichillilorenzo.flutter_inappwebview_android.in_app_browser.InAppBrowserActivity"
+71-->[:flutter_inappwebview_android] F:\Cowlar\moviely\build\flutter_inappwebview_android\intermediates\merged_manifest\debug\AndroidManifest.xml:17:13-112
+72            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|locale|layoutDirection|fontScale|screenLayout|density"
+72-->[:flutter_inappwebview_android] F:\Cowlar\moviely\build\flutter_inappwebview_android\intermediates\merged_manifest\debug\AndroidManifest.xml:18:13-137
+73            android:exported="false"
+73-->[:flutter_inappwebview_android] F:\Cowlar\moviely\build\flutter_inappwebview_android\intermediates\merged_manifest\debug\AndroidManifest.xml:19:13-37
+74            android:theme="@style/AppTheme" />
+74-->[:flutter_inappwebview_android] F:\Cowlar\moviely\build\flutter_inappwebview_android\intermediates\merged_manifest\debug\AndroidManifest.xml:20:13-44
+75        <activity
+75-->[:flutter_inappwebview_android] F:\Cowlar\moviely\build\flutter_inappwebview_android\intermediates\merged_manifest\debug\AndroidManifest.xml:21:9-24:55
+76            android:name="com.pichillilorenzo.flutter_inappwebview_android.chrome_custom_tabs.ChromeCustomTabsActivity"
+76-->[:flutter_inappwebview_android] F:\Cowlar\moviely\build\flutter_inappwebview_android\intermediates\merged_manifest\debug\AndroidManifest.xml:22:13-120
+77            android:exported="false"
+77-->[:flutter_inappwebview_android] F:\Cowlar\moviely\build\flutter_inappwebview_android\intermediates\merged_manifest\debug\AndroidManifest.xml:23:13-37
+78            android:theme="@style/ThemeTransparent" />
+78-->[:flutter_inappwebview_android] F:\Cowlar\moviely\build\flutter_inappwebview_android\intermediates\merged_manifest\debug\AndroidManifest.xml:24:13-52
+79        <activity
+79-->[:flutter_inappwebview_android] F:\Cowlar\moviely\build\flutter_inappwebview_android\intermediates\merged_manifest\debug\AndroidManifest.xml:25:9-28:55
+80            android:name="com.pichillilorenzo.flutter_inappwebview_android.chrome_custom_tabs.TrustedWebActivity"
+80-->[:flutter_inappwebview_android] F:\Cowlar\moviely\build\flutter_inappwebview_android\intermediates\merged_manifest\debug\AndroidManifest.xml:26:13-114
+81            android:exported="false"
+81-->[:flutter_inappwebview_android] F:\Cowlar\moviely\build\flutter_inappwebview_android\intermediates\merged_manifest\debug\AndroidManifest.xml:27:13-37
+82            android:theme="@style/ThemeTransparent" />
+82-->[:flutter_inappwebview_android] F:\Cowlar\moviely\build\flutter_inappwebview_android\intermediates\merged_manifest\debug\AndroidManifest.xml:28:13-52
+83        <activity
+83-->[:flutter_inappwebview_android] F:\Cowlar\moviely\build\flutter_inappwebview_android\intermediates\merged_manifest\debug\AndroidManifest.xml:29:9-33:55
+84            android:name="com.pichillilorenzo.flutter_inappwebview_android.chrome_custom_tabs.ChromeCustomTabsActivitySingleInstance"
+84-->[:flutter_inappwebview_android] F:\Cowlar\moviely\build\flutter_inappwebview_android\intermediates\merged_manifest\debug\AndroidManifest.xml:30:13-134
+85            android:exported="false"
+85-->[:flutter_inappwebview_android] F:\Cowlar\moviely\build\flutter_inappwebview_android\intermediates\merged_manifest\debug\AndroidManifest.xml:31:13-37
+86            android:launchMode="singleInstance"
+86-->[:flutter_inappwebview_android] F:\Cowlar\moviely\build\flutter_inappwebview_android\intermediates\merged_manifest\debug\AndroidManifest.xml:32:13-48
+87            android:theme="@style/ThemeTransparent" />
+87-->[:flutter_inappwebview_android] F:\Cowlar\moviely\build\flutter_inappwebview_android\intermediates\merged_manifest\debug\AndroidManifest.xml:33:13-52
+88        <activity
+88-->[:flutter_inappwebview_android] F:\Cowlar\moviely\build\flutter_inappwebview_android\intermediates\merged_manifest\debug\AndroidManifest.xml:34:9-38:55
+89            android:name="com.pichillilorenzo.flutter_inappwebview_android.chrome_custom_tabs.TrustedWebActivitySingleInstance"
+89-->[:flutter_inappwebview_android] F:\Cowlar\moviely\build\flutter_inappwebview_android\intermediates\merged_manifest\debug\AndroidManifest.xml:35:13-128
+90            android:exported="false"
+90-->[:flutter_inappwebview_android] F:\Cowlar\moviely\build\flutter_inappwebview_android\intermediates\merged_manifest\debug\AndroidManifest.xml:36:13-37
+91            android:launchMode="singleInstance"
+91-->[:flutter_inappwebview_android] F:\Cowlar\moviely\build\flutter_inappwebview_android\intermediates\merged_manifest\debug\AndroidManifest.xml:37:13-48
+92            android:theme="@style/ThemeTransparent" />
+92-->[:flutter_inappwebview_android] F:\Cowlar\moviely\build\flutter_inappwebview_android\intermediates\merged_manifest\debug\AndroidManifest.xml:38:13-52
+93
+94        <receiver
+94-->[:flutter_inappwebview_android] F:\Cowlar\moviely\build\flutter_inappwebview_android\intermediates\merged_manifest\debug\AndroidManifest.xml:40:9-43:40
+95            android:name="com.pichillilorenzo.flutter_inappwebview_android.chrome_custom_tabs.ActionBroadcastReceiver"
+95-->[:flutter_inappwebview_android] F:\Cowlar\moviely\build\flutter_inappwebview_android\intermediates\merged_manifest\debug\AndroidManifest.xml:41:13-119
+96            android:enabled="true"
+96-->[:flutter_inappwebview_android] F:\Cowlar\moviely\build\flutter_inappwebview_android\intermediates\merged_manifest\debug\AndroidManifest.xml:42:13-35
+97            android:exported="false" />
+97-->[:flutter_inappwebview_android] F:\Cowlar\moviely\build\flutter_inappwebview_android\intermediates\merged_manifest\debug\AndroidManifest.xml:43:13-37
+98
+99        <meta-data
+99-->[:flutter_inappwebview_android] F:\Cowlar\moviely\build\flutter_inappwebview_android\intermediates\merged_manifest\debug\AndroidManifest.xml:45:9-47:36
+100            android:name="io.flutter.embedded_views_preview"
+100-->[:flutter_inappwebview_android] F:\Cowlar\moviely\build\flutter_inappwebview_android\intermediates\merged_manifest\debug\AndroidManifest.xml:46:13-61
+101            android:value="true" />
+101-->[:flutter_inappwebview_android] F:\Cowlar\moviely\build\flutter_inappwebview_android\intermediates\merged_manifest\debug\AndroidManifest.xml:47:13-33
+102
+103        <activity
+103-->[:url_launcher_android] F:\Cowlar\moviely\build\url_launcher_android\intermediates\merged_manifest\debug\AndroidManifest.xml:10:9-13:74
+104            android:name="io.flutter.plugins.urllauncher.WebViewActivity"
+104-->[:url_launcher_android] F:\Cowlar\moviely\build\url_launcher_android\intermediates\merged_manifest\debug\AndroidManifest.xml:11:13-74
+105            android:exported="false"
+105-->[:url_launcher_android] F:\Cowlar\moviely\build\url_launcher_android\intermediates\merged_manifest\debug\AndroidManifest.xml:12:13-37
+106            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+106-->[:url_launcher_android] F:\Cowlar\moviely\build\url_launcher_android\intermediates\merged_manifest\debug\AndroidManifest.xml:13:13-71
+107
+108        <uses-library
+108-->[androidx.window:window:1.0.0-beta04] C:\Users\Haseeb Ahmed\.gradle\caches\transforms-3\25cee5f028ac2a6b79fd6278ff5b59e2\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:25:9-27:40
+109            android:name="androidx.window.extensions"
+109-->[androidx.window:window:1.0.0-beta04] C:\Users\Haseeb Ahmed\.gradle\caches\transforms-3\25cee5f028ac2a6b79fd6278ff5b59e2\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:26:13-54
+110            android:required="false" />
+110-->[androidx.window:window:1.0.0-beta04] C:\Users\Haseeb Ahmed\.gradle\caches\transforms-3\25cee5f028ac2a6b79fd6278ff5b59e2\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:27:13-37
+111        <uses-library
+111-->[androidx.window:window:1.0.0-beta04] C:\Users\Haseeb Ahmed\.gradle\caches\transforms-3\25cee5f028ac2a6b79fd6278ff5b59e2\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:28:9-30:40
+112            android:name="androidx.window.sidecar"
+112-->[androidx.window:window:1.0.0-beta04] C:\Users\Haseeb Ahmed\.gradle\caches\transforms-3\25cee5f028ac2a6b79fd6278ff5b59e2\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:29:13-51
+113            android:required="false" />
+113-->[androidx.window:window:1.0.0-beta04] C:\Users\Haseeb Ahmed\.gradle\caches\transforms-3\25cee5f028ac2a6b79fd6278ff5b59e2\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:30:13-37
+114
+115        <provider
+115-->[androidx.emoji2:emoji2:1.2.0] C:\Users\Haseeb Ahmed\.gradle\caches\transforms-3\e04bc3769bedd8dd6f8ca688986b0355\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:24:9-32:20
+116            android:name="androidx.startup.InitializationProvider"
+116-->[androidx.emoji2:emoji2:1.2.0] C:\Users\Haseeb Ahmed\.gradle\caches\transforms-3\e04bc3769bedd8dd6f8ca688986b0355\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:25:13-67
+117            android:authorities="com.example.moviely.androidx-startup"
+117-->[androidx.emoji2:emoji2:1.2.0] C:\Users\Haseeb Ahmed\.gradle\caches\transforms-3\e04bc3769bedd8dd6f8ca688986b0355\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:26:13-68
+118            android:exported="false" >
+118-->[androidx.emoji2:emoji2:1.2.0] C:\Users\Haseeb Ahmed\.gradle\caches\transforms-3\e04bc3769bedd8dd6f8ca688986b0355\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:27:13-37
+119            <meta-data
+119-->[androidx.emoji2:emoji2:1.2.0] C:\Users\Haseeb Ahmed\.gradle\caches\transforms-3\e04bc3769bedd8dd6f8ca688986b0355\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:29:13-31:52
+120                android:name="androidx.emoji2.text.EmojiCompatInitializer"
+120-->[androidx.emoji2:emoji2:1.2.0] C:\Users\Haseeb Ahmed\.gradle\caches\transforms-3\e04bc3769bedd8dd6f8ca688986b0355\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:30:17-75
+121                android:value="androidx.startup" />
+121-->[androidx.emoji2:emoji2:1.2.0] C:\Users\Haseeb Ahmed\.gradle\caches\transforms-3\e04bc3769bedd8dd6f8ca688986b0355\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:31:17-49
+122            <meta-data
+122-->[androidx.lifecycle:lifecycle-process:2.4.1] C:\Users\Haseeb Ahmed\.gradle\caches\transforms-3\8c1e738388b632b23acecc5b0cf3e292\transformed\jetified-lifecycle-process-2.4.1\AndroidManifest.xml:31:13-33:52
+123                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
+123-->[androidx.lifecycle:lifecycle-process:2.4.1] C:\Users\Haseeb Ahmed\.gradle\caches\transforms-3\8c1e738388b632b23acecc5b0cf3e292\transformed\jetified-lifecycle-process-2.4.1\AndroidManifest.xml:32:17-78
+124                android:value="androidx.startup" />
+124-->[androidx.lifecycle:lifecycle-process:2.4.1] C:\Users\Haseeb Ahmed\.gradle\caches\transforms-3\8c1e738388b632b23acecc5b0cf3e292\transformed\jetified-lifecycle-process-2.4.1\AndroidManifest.xml:33:17-49
+125        </provider>
+126    </application>
+127
+128</manifest>
