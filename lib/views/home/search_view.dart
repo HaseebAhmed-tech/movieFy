@@ -29,6 +29,11 @@ class _SearchViewState extends State<SearchView> {
     _tmdbController = Provider.of<TMDBController>(context, listen: false);
 
     _searchController = TextEditingController();
+
+    _searchController.text =
+        Provider.of<SearchedListProvider>(context, listen: false).searchQuery ??
+            '';
+
     _searchFocusNode = FocusNode();
     super.initState();
   }
@@ -77,7 +82,8 @@ class _SearchViewState extends State<SearchView> {
       focusNode: _searchFocusNode,
       onFieldSubmitted: (p0) {
         Provider.of<SearchedListProvider>(context, listen: false)
-            .updateSearched(
+            .setSearchQuery(
+          _searchController.text,
           _searchController.text.isNotEmpty
               ? Utils.searchMovies(
                   match: p0,

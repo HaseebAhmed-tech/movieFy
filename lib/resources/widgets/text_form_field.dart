@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:moviely/resources/constants/colors.dart';
+
+import '../constants/colors.dart';
 
 class MyTextFormField extends StatelessWidget {
   final TextEditingController? controller;

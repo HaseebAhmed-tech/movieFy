@@ -1,7 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:moviely/resources/constants/colors.dart';
+
+import '../constants/colors.dart';
 
 class MinorDetailCover extends StatelessWidget {
   const MinorDetailCover(

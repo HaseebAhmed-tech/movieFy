@@ -12,13 +12,18 @@ import 'package:moviely/utils/routes/routes.dart';
 import 'package:moviely/utils/routes/routes_name.dart';
 import 'package:provider/provider.dart';
 import 'package:path_provider/path_provider.dart' as path_provider;
-
 import 'controller/watch_list_provider.dart';
 import 'model/Adapter/movie_adapter.dart';
 import 'model/movie.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  try {
+    await dotenv.load(fileName: ".env");
+  } catch (e) {
+    debugPrint(e.toString());
+  }
   final appDocumentDir = await path_provider.getApplicationDocumentsDirectory();
   await Hive.initFlutter(appDocumentDir.path);
   // print('Hive cHECK');

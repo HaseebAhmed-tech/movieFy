@@ -13,6 +13,7 @@ import '../model/movie.dart';
 import '../resources/constants/colors.dart';
 import '../resources/constants/padding.dart';
 import '../resources/widgets/detail_widget.dart';
+import '../utils/utils.dart';
 
 class DetailsView extends StatefulWidget {
   const DetailsView({
@@ -38,6 +39,7 @@ class _DetailsViewState extends State<DetailsView> {
   late YoutubePlayerController _controller;
   late WatchListProvider _watchListProvider;
   final ValueNotifier<bool> _addToWatchList = ValueNotifier(false);
+  bool isConnected = false;
   @override
   void initState() {
     _watchListProvider = Provider.of<WatchListProvider>(context, listen: false);
@@ -51,9 +53,15 @@ class _DetailsViewState extends State<DetailsView> {
     );
 
     if (widget.details == null) {
-      _tmdbController = Provider.of<TMDBController>(context, listen: false);
-
-      _tmdbController!.getMovieDetails(context, widget.movie.id);
+      Utils.checkInternetConnectivity().then((value) {
+        if (value) {
+          isConnected = true;
+          _tmdbController = Provider.of<TMDBController>(context, listen: false);
+          _tmdbController!.getMovieDetails(context, widget.movie.id);
+        }
+      }, onError: (error) {
+        debugPrint('Error: $error');
+      });
     } else {
       _tmdbController = null;
     }
@@ -125,17 +133,33 @@ class _DetailsViewState extends State<DetailsView> {
   }
 
   Widget _detailsBody(BoxConstraints cons, Widget player) {
-    return SingleChildScrollView(
-      child: Stack(
-        children: [
-          _backDrop(cons, widget.movie.imageUrl),
-          Positioned(
-            top: 160,
-            right: 10,
-            child: _rating(widget.movie.rating),
-          ),
-          _movieDetails(cons, player),
-        ],
+    return RefreshIndicator.adaptive(
+      onRefresh: () async {
+        Utils.checkInternetConnectivity().then((value) {
+          if (value) {
+            isConnected = true;
+            _tmdbController =
+                Provider.of<TMDBController>(context, listen: false);
+            _tmdbController!.getMovieDetails(context, widget.movie.id);
+          } else {
+            debugPrint('No Internet');
+            Utils.toastMessage('No Internet Connection');
+          }
+        });
+      },
+      child: SingleChildScrollView(
+        physics: const AlwaysScrollableScrollPhysics(),
+        child: Stack(
+          children: [
+            _backDrop(cons, widget.movie.imageUrl),
+            Positioned(
+              top: 160,
+              right: 10,
+              child: _rating(widget.movie.rating),
+            ),
+            _movieDetails(cons, player),
+          ],
+        ),
       ),
     );
   }
@@ -371,16 +395,42 @@ class _DetailsViewState extends State<DetailsView> {
           return Consumer<TMDBController>(builder: (context, provider, child) {
             if (provider.details != null) {
               if (_controller.metadata.videoId == '') {
-                _controller.loadVideoById(videoId: provider.details!.videoLink);
+                provider.details!.videoLink != ''
+                    ? isConnected
+                        ? _controller.loadVideoById(
+                            videoId: provider.details!.videoLink)
+                        : null
+                    : null;
               }
 
-              return _trailer(cons, player);
+              return provider.details!.videoLink != ''
+                  ? _trailer(cons, player)
+                  : videoLabel(cons);
             } else {
-              return const SizedBox();
+              return videoLabel(cons);
             }
           });
         }
       }),
+    );
+  }
+
+  Widget videoLabel(BoxConstraints cons) {
+    return GestureDetector(
+      onTap: () {
+        Utils.toastMessage('No Internet Connection');
+      },
+      child: Container(
+          width: double.maxFinite,
+          height: cons.maxHeight * 0.28,
+          alignment: Alignment.center,
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
+              color: AppColors.textFormFieldFillColor),
+          child: Icon(
+            Icons.play_circle_outline,
+            size: cons.maxHeight * 0.15,
+          )),
     );
   }
 

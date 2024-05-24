@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:moviely/data/network/base_api_service.dart';
 import 'package:dio/dio.dart';
 import 'package:moviely/resources/constants/api_keys.dart';
@@ -15,6 +16,10 @@ class NetworkApiService extends BaseApiService {
   Future<Map<String, dynamic>> getUpcomingMovies(String path) async {
     dynamic responseJson;
     try {
+      debugPrint(
+          'Access Token:  ${dotenv.env['MOVIES_BASE_URL'] ?? 'MOVIES_BASE_URL not found'}');
+      debugPrint(
+          'Access Token: ${dotenv.env['API_READ_ACCESS_TOKEN'] ?? 'API_READ_ACCESS_TOKEN not found'}');
       Options options = Options(
         headers: {'Authorization': 'Bearer ${ApiKeys.apiReadAccessToken}'},
       );

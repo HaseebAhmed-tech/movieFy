@@ -17,4 +17,10 @@ class SearchedListProvider extends ChangeNotifier {
     searchQuery = query;
     notifyListeners();
   }
+
+  resetSearch() {
+    searched = [];
+    searchQuery = null;
+    notifyListeners();
+  }
 }

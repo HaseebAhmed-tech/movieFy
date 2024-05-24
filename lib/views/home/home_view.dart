@@ -75,34 +75,38 @@ class _HomeViewState extends State<HomeView> {
   }
 
   Widget _homeBody() {
-    return LayoutBuilder(
-      builder: (context, cons) {
-        return SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(
-                horizontal: MyPadding.defaultHorizontalPadding,
-                vertical: MyPadding.defaultVerticalPadding),
-            child: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  _topText(),
-                  const SizedBox(height: MyPadding.medium),
-                  _searchBar(),
-                  const SizedBox(height: MyPadding.large),
-                  SizedBox(
-                    height: cons.maxHeight * 0.30,
-                    child: _trendingMovies(cons),
+    return widget.movies != null
+        ? LayoutBuilder(
+            builder: (context, cons) {
+              return SafeArea(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: MyPadding.defaultHorizontalPadding,
+                      vertical: MyPadding.defaultVerticalPadding),
+                  child: SingleChildScrollView(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        _topText(),
+                        const SizedBox(height: MyPadding.medium),
+                        _searchBar(),
+                        const SizedBox(height: MyPadding.large),
+                        SizedBox(
+                          height: cons.maxHeight * 0.30,
+                          child: _trendingMovies(cons),
+                        ),
+                        const SizedBox(height: MyPadding.large),
+                        _topBarSection(cons),
+                      ],
+                    ),
                   ),
-                  const SizedBox(height: MyPadding.large),
-                  _topBarSection(cons),
-                ],
-              ),
-            ),
-          ),
-        );
-      },
-    );
+                ),
+              );
+            },
+          )
+        : const Center(
+            child: CircularProgressIndicator(),
+          );
   }
 
   Widget _topText() {
@@ -125,13 +129,14 @@ class _HomeViewState extends State<HomeView> {
       // focusNode: _searchFocusNode,
       onFieldSubmitted: (p0) {
         Provider.of<SearchedListProvider>(context, listen: false)
-            .updateSearched(_searchController.text.isNotEmpty
-                ? widget.movies!.where((element) {
-                    return element.title
-                        .toLowerCase()
-                        .contains(p0.toLowerCase().trim());
-                  }).toList()
-                : []);
+            .setSearchQuery(
+                _searchController.text,
+                _searchController.text.isNotEmpty
+                    ? Utils.searchMovies(
+                        match: p0,
+                        movies: widget.movies,
+                      )
+                    : []);
         Utils.fieldFocusChange(context, _searchFocusNode);
         Provider.of<BottomNavigationProvider>(context, listen: false)
             .setIndex(1);

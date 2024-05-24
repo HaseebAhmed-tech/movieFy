@@ -22,6 +22,7 @@ class TMDBController extends ChangeNotifier {
   ) async {
     final moviesBox = await Hive.openBox('movies');
     moviesBox.clear();
+    debugPrint('Upcoming Movies End Point: ${AppURL.upcomingMoviesEndPoint}');
     _tmdbRepository.getUpcomingMovies(AppURL.upcomingMoviesEndPoint).then(
       (value) async {
         debugPrint('Upcoming Result $value');
@@ -106,33 +107,26 @@ class TMDBController extends ChangeNotifier {
   ) async {
     try {
       final detailsBox = await Hive.openBox<Details>('details');
-      print('Founding this Details of $movieId in Hive}');
       if (detailsBox.containsKey(movieId)) {
-        print('Found Details of $movieId in Hive}');
         details = detailsBox.get(movieId);
         notifyListeners();
         return details;
       } else {
-        print('Could Not Find Details of $movieId in Hive}');
-
         try {
           var response = await _tmdbRepository
               .getMovieDetails(AppURL.getMovieDetailsEndPoint(movieId));
           debugPrint('Details should Return: $response');
           if (response != null) {
-            print('Founding not null');
             details = Details.fromJson(response);
             detailsBox.put(movieId, details!);
             detailsBox.close();
           } else {
-            print('Founding Returned NULL');
             details = null;
             notifyListeners();
 
             return null;
           }
         } catch (e) {
-          print('Founding Returned NULL');
           return null;
         }
       }

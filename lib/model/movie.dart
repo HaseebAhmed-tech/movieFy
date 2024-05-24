@@ -1,4 +1,3 @@
-import 'package:moviely/model/details.dart';
 import 'package:moviely/utils/utils.dart';
 
 import '../resources/constants/app_urls.dart';
@@ -12,7 +11,6 @@ class Movie {
   final double popularity;
   final String overview;
   final String backDropUrl;
-  final Details? details;
 
   const Movie({
     required this.title,
@@ -23,10 +21,10 @@ class Movie {
     required this.popularity,
     this.overview = 'No Overview Available',
     this.backDropUrl = 'https://via.placeholder.com/800/350',
-    this.details,
   });
-  Movie.fromJson(Map<String, dynamic> json, {this.details})
-      : title = json['title'],
+  Movie.fromJson(
+    Map<String, dynamic> json,
+  )   : title = json['title'],
         releaseDate = json['release_date'].split('-')[0],
         rating = Utils.roundStringDouble(
           json['vote_average'].toString(),
