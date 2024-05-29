@@ -102,32 +102,34 @@ class TMDBController extends ChangeNotifier {
 
   // Future<Details?> getMovieDetails(
   Future<Details?> getMovieDetails(
-    BuildContext context,
-    String movieId,
+    BuildContext? context,
+    String? movieId,
   ) async {
     try {
-      final detailsBox = await Hive.openBox<Details>('details');
-      if (detailsBox.containsKey(movieId)) {
-        details = detailsBox.get(movieId);
-        notifyListeners();
-        return details;
-      } else {
-        try {
-          var response = await _tmdbRepository
-              .getMovieDetails(AppURL.getMovieDetailsEndPoint(movieId));
-          debugPrint('Details should Return: $response');
-          if (response != null) {
-            details = Details.fromJson(response);
-            detailsBox.put(movieId, details!);
-            detailsBox.close();
-          } else {
-            details = null;
-            notifyListeners();
+      if (movieId != null) {
+        final detailsBox = await Hive.openBox<Details>('details');
+        if (detailsBox.containsKey(movieId)) {
+          details = detailsBox.get(movieId);
+          notifyListeners();
+          return details;
+        } else {
+          try {
+            var response = await _tmdbRepository
+                .getMovieDetails(AppURL.getMovieDetailsEndPoint(movieId));
+            debugPrint('Details should Return: $response');
+            if (response != null) {
+              details = Details.fromJson(response);
+              detailsBox.put(movieId, details!);
+              detailsBox.close();
+            } else {
+              details = null;
+              notifyListeners();
 
+              return null;
+            }
+          } catch (e) {
             return null;
           }
-        } catch (e) {
-          return null;
         }
       }
 
